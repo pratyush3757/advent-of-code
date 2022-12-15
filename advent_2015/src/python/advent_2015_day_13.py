@@ -1,5 +1,10 @@
 import re
-with open('day13_input.txt') as f:
+import os.path
+
+with open(os.path.join(
+    os.path.split(os.path.dirname(__file__))[0], 
+    'input', 
+    'advent_2015_day_13.txt')) as f:
     lines = f.readlines()
 
 # part1
@@ -8,13 +13,11 @@ happiness_table = dict()
 complete_plans = []
 
 def split_line(line: str):
-    line = line.rstrip(".")
-    firstpart, personB = line.split(" happiness units by sitting next to ")
-    personA, points = firstpart.split(" would ")
-    sign, points = points.split(" ")
-    points = int(points)
-    points = points if sign == 'gain' else -points
-    return personA, personB, points
+    match line.split(' '):
+        case [personA, "would", sign, points,"happiness", "units", "by", 'sitting', "next", "to", personB]:
+            points = int(points)
+            points = points if sign == 'gain' else -points
+            return personA, personB.rstrip('.'), points
 
 def new_if_absent(person):
     if person in happiness_table:
@@ -64,7 +67,7 @@ def part1():
             print(i)
     
 part1()
-print(len(complete_plans))
+print(len(complete_plans), "permutations")
 
 # part2
 complete_plans = []
@@ -84,5 +87,4 @@ def part2():
             print(i)
 
 part2()
-
-print(len(complete_plans))
+print(len(complete_plans), "permutations")

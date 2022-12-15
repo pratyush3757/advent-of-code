@@ -1,5 +1,10 @@
 import re
-with open('day12_input.txt') as f:
+import os.path
+
+with open(os.path.join(
+    os.path.split(os.path.dirname(__file__))[0], 
+    'input', 
+    'advent_2015_day_12.txt')) as f:
     lines = f.readlines()
 
 # part1
@@ -12,7 +17,7 @@ def part1():
     for line in lines:
         string_numerals = re.findall(r"[-+]?\d+", line)
         int_numerals = to_num(string_numerals)
-        print(int_numerals)
+        # print(int_numerals)
         total += sum(int_numerals)
     print(total)
     

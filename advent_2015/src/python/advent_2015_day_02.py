@@ -1,4 +1,9 @@
-with open('day2_input.txt') as f:
+import os.path
+
+with open(os.path.join(
+    os.path.split(os.path.dirname(__file__))[0], 
+    'input', 
+    'advent_2015_day_02.txt')) as f:
     lines = f.readlines()
 
 # part 1

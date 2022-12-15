@@ -1,5 +1,10 @@
 import re
-with open('day9_input.txt') as f:
+import os.path
+
+with open(os.path.join(
+    os.path.split(os.path.dirname(__file__))[0], 
+    'input', 
+    'advent_2015_day_09.txt')) as f:
     lines = f.readlines()
 
 # part1

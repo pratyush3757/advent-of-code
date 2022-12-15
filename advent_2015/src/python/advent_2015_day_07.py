@@ -1,4 +1,9 @@
-with open('day7_input.txt') as f:
+import os.path
+
+with open(os.path.join(
+    os.path.split(os.path.dirname(__file__))[0], 
+    'input', 
+    'advent_2015_day_07.txt')) as f:
     lines = f.readlines()
 
 # part1
@@ -33,92 +38,78 @@ def get_val(x):
     else:
         return known_wires[x]
     
-def split_incoming(incoming):
-    incoming_op = incoming.split(" ")
-    operands = []
-    operator = ""
-    if (len(incoming_op) == 1):
-        operands.append(incoming_op[0])
-    elif (len(incoming_op) == 2):
-        operator = incoming_op[0]
-        operands.append(incoming_op[1])
-    else:
-        operator = incoming_op[1]
-        operands.extend([incoming_op[0], incoming_op[2]])
-        
-    return (operands, operator)
+def split_incoming(incoming: str) -> tuple[list[str], str]:
+    match incoming.split(' '):
+        case [wire]:
+            return ([wire], "")
+        case [OP, wire]:
+            return ([wire], OP)
+        case [wire_1, OP, wire_2]:
+            return ([wire_1, wire_2], OP)
 
 def solve(operands, operator):
+    operands = list(map(get_val, operands))
     if (len(operands) == 1) and (operator == ""):
-        return get_val(operands[0])
-    elif (operator == "NOT"):
-        return notop(get_val(operands[0]))
-    elif (operator == "AND"):
-        return andop(get_val(operands[0]), get_val(operands[1]))
-    elif (operator == "OR"):
-        return orop(get_val(operands[0]), get_val(operands[1]))
-    elif (operator == "XOR"):
-        return xorop(get_val(operands[0]), get_val(operands[1]))
-    elif (operator == "LSHIFT"):
-        return bitleft(get_val(operands[0]), get_val(operands[1]))
-    elif (operator == "RSHIFT"):
-        return bitright(get_val(operands[0]), get_val(operands[1]))
+        return operands[0]
+    match operator:
+        case "NOT":
+            return notop(*operands)
+        case "AND":
+            return andop(*operands)
+        case "OR":
+            return orop(*operands)
+        case "XOR":
+            return xorop(*operands)
+        case "LSHIFT":
+            return bitleft(*operands)
+        case "RSHIFT":
+            return bitright(*operands)
 
-for line in lines:
-    incoming, outgoing = list(map(str.strip, line.split("->")))
-    operands, operator = split_incoming(incoming)
+def populate_wire_dicts():
+    global known_wires, unknown_wires
+    known_wires = dict()
+    unknown_wires = dict()
     
-    if all(resolvable(op) for op in operands):
-        print(incoming, outgoing)
-        known_wires[outgoing] = solve(operands, operator)
-    else:
-        unknown_wires[outgoing] = incoming
-
-while(len(unknown_wires) != 0):
-    if 'a' in known_wires:
-        print(len(unknown_wires))
-        break
-    removable_keys = []
-    for key, value in unknown_wires.items():
-        operands, operator = split_incoming(value)
+    for line in lines:
+        incoming, outgoing = list(map(str.strip, line.split("->")))
+        operands, operator = split_incoming(incoming)
+        
         if all(resolvable(op) for op in operands):
-            known_wires[key] = solve(operands, operator)
-            print(value, key, known_wires[key])
-            removable_keys.append(key)
-    for key in removable_keys:
-        unknown_wires.pop(key, None)
+            # print(incoming, outgoing)
+            known_wires[outgoing] = solve(operands, operator)
+        else:
+            unknown_wires[outgoing] = incoming
 
-print(known_wires)
+def resolve_unknown_wires():
+    while(len(unknown_wires) != 0):
+        if 'a' in known_wires:
+            print(len(unknown_wires))
+            break
+        removable_keys = []
+        for key, value in unknown_wires.items():
+            operands, operator = split_incoming(value)
+            if all(resolvable(op) for op in operands):
+                known_wires[key] = solve(operands, operator)
+                # print(value, key, known_wires[key])
+                removable_keys.append(key)
+        for key in removable_keys:
+            unknown_wires.pop(key, None)
 
+def part_1():
+    populate_wire_dicts()
+    resolve_unknown_wires()
+    print(known_wires['a'])
+
+part_1()
 
 # part2
-known_wires = dict()
-unknown_wires = dict()
 
-for line in lines:
-    incoming, outgoing = list(map(str.strip, line.split("->")))
-    operands, operator = split_incoming(incoming)
-    
-    if all(resolvable(op) for op in operands):
-        print(incoming, outgoing)
-        known_wires[outgoing] = solve(operands, operator)
-    else:
-        unknown_wires[outgoing] = incoming
-        
-known_wires['b'] = 46065
+def part_2():
+    # assuming part_1 has been called
+    wire_b = known_wires['a']
+    populate_wire_dicts()
+    known_wires['b'] = wire_b
+    resolve_unknown_wires()
+    print(known_wires['a'])
 
-while(len(unknown_wires) != 0):
-    if 'a' in known_wires:
-        print(len(unknown_wires))
-        break
-    removable_keys = []
-    for key, value in unknown_wires.items():
-        operands, operator = split_incoming(value)
-        if all(resolvable(op) for op in operands):
-            known_wires[key] = solve(operands, operator)
-            print(value, key, known_wires[key])
-            removable_keys.append(key)
-    for key in removable_keys:
-        unknown_wires.pop(key, None)
-
-print(known_wires)
+part_2()

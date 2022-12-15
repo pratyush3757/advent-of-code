@@ -1,4 +1,9 @@
-with open('day6_input.txt') as f:
+import os.path
+
+with open(os.path.join(
+    os.path.split(os.path.dirname(__file__))[0], 
+    'input', 
+    'advent_2015_day_06.txt')) as f:
     lines = f.readlines()
 
 # part1
@@ -29,25 +34,27 @@ def toggle(ul: tuple[int, int], lr: tuple[int, int]):
         for j in range(uly, lry + 1):
             lights[i][j] = not lights[i][j]
 
-for line in lines:
-    command = line.rsplit(' ', 3)
-    # print(command)
-    
-    x, y = command[1].split(',')
-    ul = (int(x), int(y))
+def convert_to_coord(ul: str, lr: str):
+    ul = tuple(map(int, ul.split(",")))
+    lr = tuple(map(int, lr.split(",")))
+    return ul, lr
 
-    x, y = command[3].split(',')
-    lr = (int(x), int(y))
-    # print(ul, lr)
-    
-    if command[0] == "turn on":
-        turn_on(ul, lr)
-    elif command[0] == "turn off":
-        turn_off(ul, lr)
-    elif command[0] == "toggle":
-        toggle(ul, lr)
+def part_1():
+    for line in lines:
+        match line.split(' '):
+            case ["turn", "on", ul, "through", lr]:
+                ul, lr = convert_to_coord(ul, lr)
+                turn_on(ul, lr)
+            case ["turn", "off", ul, "through", lr]:
+                ul, lr = convert_to_coord(ul, lr)
+                turn_off(ul, lr)
+            case ["toggle", ul, "through", lr]:
+                ul, lr = convert_to_coord(ul, lr)
+                toggle(ul, lr)
 
-print(sum(sum(row) for row in lights))
+    print(sum(sum(row) for row in lights))
+
+part_1()
 
 # part2
 
@@ -79,23 +86,19 @@ def toggle_more_bright(ul: tuple[int, int], lr: tuple[int, int]):
         for j in range(uly, lry + 1):
             lights[i][j] += 2
 
+def part_2():        
+    for line in lines:
+        match line.split(' '):
+            case ["turn", "on", ul, "through", lr]:
+                ul, lr = convert_to_coord(ul, lr)
+                turn_on_bright(ul, lr)
+            case ["turn", "off", ul, "through", lr]:
+                ul, lr = convert_to_coord(ul, lr)
+                turn_off_dull(ul, lr)
+            case ["toggle", ul, "through", lr]:
+                ul, lr = convert_to_coord(ul, lr)
+                toggle_more_bright(ul, lr)
 
-for line in lines:
-    command = line.rsplit(' ', 3)
-    # print(command)
-    
-    x, y = command[1].split(',')
-    ul = (int(x), int(y))
+    print(sum(sum(row) for row in lights))
 
-    x, y = command[3].split(',')
-    lr = (int(x), int(y))
-    # print(ul, lr)
-    
-    if command[0] == "turn on":
-        turn_on_bright(ul, lr)
-    elif command[0] == "turn off":
-        turn_off_dull(ul, lr)
-    elif command[0] == "toggle":
-        toggle_more_bright(ul, lr)
-
-print(sum(sum(row) for row in lights))
+part_2()
