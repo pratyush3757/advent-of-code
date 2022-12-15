@@ -7,7 +7,6 @@ with open(os.path.join(
     lines = f.readlines()
 
 # part1
-
 lights = [[False for _ in range(1000)] for _ in range(1000)]
 
 def turn_on(ul: tuple[int, int], lr: tuple[int, int]):
@@ -57,7 +56,6 @@ def part_1():
 part_1()
 
 # part2
-
 lights = [[0 for _ in range(1000)] for _ in range(1000)]
 
 def turn_on_bright(ul: tuple[int, int], lr: tuple[int, int]):

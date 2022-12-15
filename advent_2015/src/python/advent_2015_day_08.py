@@ -8,7 +8,6 @@ with open(os.path.join(
     lines = f.readlines()
 
 # part1
-
 def shorten(line: str):
     line = re.sub(r'\\\\', r'.', line)
     line = re.sub(r'\\"', r'.', line)
@@ -31,7 +30,6 @@ def part1():
 part1()
 
 # part2
-
 def expand(line: str):
     line = re.sub(r'\\', r'\\\\', line)
     line = re.sub(r'"', r'\"', line)

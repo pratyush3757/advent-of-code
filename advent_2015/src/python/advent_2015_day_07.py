@@ -6,7 +6,6 @@ with open(os.path.join(
     'advent_2015_day_07.txt')) as f:
     lines = f.readlines()
 
-# part1
 known_wires = dict()
 unknown_wires = dict()
 mask = 2 ** 16 - 1
@@ -95,6 +94,7 @@ def resolve_unknown_wires():
         for key in removable_keys:
             unknown_wires.pop(key, None)
 
+# part1
 def part_1():
     populate_wire_dicts()
     resolve_unknown_wires()
@@ -103,7 +103,6 @@ def part_1():
 part_1()
 
 # part2
-
 def part_2():
     # assuming part_1 has been called
     wire_b = known_wires['a']

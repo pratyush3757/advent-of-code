@@ -8,7 +8,6 @@ with open(os.path.join(
     lines = f.readlines()
 
 # part1
-
 def to_num(input_list):
     return list(map(int, input_list))
 

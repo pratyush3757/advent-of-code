@@ -1,5 +1,6 @@
 import re
 import os.path
+from itertools import permutations
 
 with open(os.path.join(
     os.path.split(os.path.dirname(__file__))[0], 
@@ -7,10 +8,7 @@ with open(os.path.join(
     'advent_2015_day_13.txt')) as f:
     lines = f.readlines()
 
-# part1
-
 happiness_table = dict()
-complete_plans = []
 
 def split_line(line: str):
     match line.split(' '):
@@ -29,62 +27,49 @@ def record_happiness(personA, personB, happiness):
     new_if_absent(personA)
     happiness_table[personA][personB] = happiness
 
-def max_plan_length(current_plan: tuple[list[str], int]) -> int:
-    all_people = happiness_table.keys()
-    next_candidates = set(all_people).difference(set(current_plan[0]))
-    if len(next_candidates) == 0:
-        # print(current_plan)
-        happiness = current_plan[1]
-        happiness += happiness_table.get(current_plan[0][-1]).get(current_plan[0][0])
-        happiness += happiness_table.get(current_plan[0][0]).get(current_plan[0][-1])
-        complete_plans.append((current_plan[0], happiness))
-        return happiness
-    
-    plans = []
-    for i in next_candidates:
-        next_jump = happiness_table.get(current_plan[0][-1]).get(i)
-        next_jump += happiness_table.get(i).get(current_plan[0][-1])
-        plans.append((current_plan[0] + [i], current_plan[1] + next_jump))
-    
-    return max(map(max_plan_length, plans))
+def calculate_happiness(arrangement: list[str]):
+    total_happiness = 0
+    for i, person in enumerate(arrangement):
+        total_happiness += happiness_table.get(person).get(arrangement[i-1])
+        total_happiness += happiness_table.get(arrangement[i-1]).get(person)
+    return total_happiness
 
-def part1():
+# part1
+def part_1():
     for line in lines:
         line = line.strip()
         personA, personB, happiness = split_line(line)
         record_happiness(personA, personB, happiness)
-        # print(personA, personB, happiness)
-        
-    # print(happiness_table)
     
     all_people = happiness_table.keys()
-    plan_lengths = list(map(lambda x: max_plan_length(([x], 0)), all_people))
-    longest_plan_length = max(plan_lengths)
-    print(plan_lengths, longest_plan_length)
+    arrangement_permutations = list(permutations(all_people))
+    max_happiness = max(map(calculate_happiness, arrangement_permutations))
+    print(max_happiness)
     
-    for i in complete_plans:
-        if i[1] == longest_plan_length:
+    for i in arrangement_permutations:
+        if i[1] == max_happiness:
             print(i)
     
-part1()
-print(len(complete_plans), "permutations")
+    print(len(arrangement_permutations), "permutations")
+    
+part_1()
 
 # part2
-complete_plans = []
-def part2():
+def part_2():
     all_people = happiness_table.keys()
     new_if_absent("You")
     for person in all_people:
         happiness_table[person]["You"] = 0
         happiness_table["You"][person] = 0
 
-    plan_lengths = list(map(lambda x: max_plan_length(([x], 0)), all_people))
-    longest_plan_length = max(plan_lengths)
-    print(plan_lengths, longest_plan_length)
+    arrangement_permutations = list(permutations(all_people))
+    max_happiness = max(map(calculate_happiness, arrangement_permutations))
+    print(max_happiness)
     
-    for i in complete_plans:
-        if i[1] == longest_plan_length:
+    for i in arrangement_permutations:
+        if i[1] == max_happiness:
             print(i)
+    
+    print(len(arrangement_permutations), "permutations")
 
-part2()
-print(len(complete_plans), "permutations")
+part_2()

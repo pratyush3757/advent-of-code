@@ -7,7 +7,6 @@ with open(os.path.join(
     lines = f.readlines()
 
 # part 1
-
 sum_area = 0
 sum_ribbon = 0
 for line in lines:
