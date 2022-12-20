@@ -10,6 +10,7 @@ fn get_input_path() -> Option<PathBuf> {
     Some(ancestors)
 }
 
+#[must_use]
 pub fn read_input_file() -> Vec<String> {
     let input_file_path = get_input_path().expect("Error getting the input file path");
     println!("Input File: {}", input_file_path.display());
