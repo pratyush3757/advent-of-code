@@ -57,10 +57,10 @@ def part2():
     all_cities = distance_table.keys()
     route_permutations = list(permutations(all_cities))
     longest_route_length = max(map(calculate_route_length, route_permutations))
-    print(shortest_route_length)
+    print(longest_route_length)
     
     for i in route_permutations:
-        if i[1] == shortest_route_length:
+        if i[1] == longest_route_length:
             print(i)
     
     print(len(route_permutations))
