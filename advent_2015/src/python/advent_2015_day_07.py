@@ -17,7 +17,7 @@ def orop(x, y):
     return x | y
 
 def xorop(x, y):
-    return x & y
+    return x ^ y
 
 def notop(x):
     return ~x
