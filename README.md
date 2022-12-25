@@ -15,3 +15,7 @@ cd advent_<year>/src/python
 # example: python3 advent_2015_day_01.py
 python3 advent_<year>_day_<day number>.py
 ```
+
+### TODO:
+- [ ] Add examples as test cases
+- [ ] Add challenge text for each day
