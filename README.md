@@ -1,7 +1,8 @@
 ## Advent Of Code 2015-
 [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)   
 
-My solutions to [Advent of Code](https://adventofcode.com) challenges. Being done in Rust and Python both.
+My solutions to [Advent of Code](https://adventofcode.com) challenges. Being done in Rust and Python both.  
+The folder advent_2016 is just a placeholder at the moment.
 
 ### Usage
 ```sh
