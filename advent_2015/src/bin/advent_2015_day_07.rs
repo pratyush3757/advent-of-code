@@ -22,26 +22,28 @@ impl KnownWires {
         self.contains_key(x) || x.parse::<u16>().is_ok()
     }
 
-    fn solve(&self, operands: &[&str], operator: &str) -> u16 {
-        let operands_val = operands
+    fn solve_and_insert(&mut self, key: String, operands: &[&str], operator: &str) {
+        let operands_values = operands
             .iter()
             .map(|x| self.get_val(x))
             .collect::<Vec<u16>>();
 
-        if operands_val.len() == 1 && operator.is_empty() {
-            return operands_val[0];
-        }
-
         let mask = u16::MAX;
-        match operator {
-            "NOT" => !operands_val[0],
-            "AND" => operands_val[0] & operands_val[1],
-            "OR" => operands_val[0] | operands_val[1],
-            "XOR" => operands_val[0] ^ operands_val[1],
-            "LSHIFT" => (operands_val[0] << operands_val[1]) & mask,
-            "RSHIFT" => (operands_val[0] >> operands_val[1]) & mask,
-            _ => unreachable!("All operators accounted for"),
-        }
+        let value = if operands_values.len() == 1 && operator.is_empty() {
+            operands_values[0]
+        } else {
+            match operator {
+                "NOT" => !operands_values[0],
+                "AND" => operands_values[0] & operands_values[1],
+                "OR" => operands_values[0] | operands_values[1],
+                "XOR" => operands_values[0] ^ operands_values[1],
+                "LSHIFT" => (operands_values[0] << operands_values[1]) & mask,
+                "RSHIFT" => (operands_values[0] >> operands_values[1]) & mask,
+                _ => unreachable!("All operators accounted for"),
+            }
+        };
+
+        self.insert(key, value);
     }
 
     fn get_val(&self, x: &str) -> u16 {
@@ -84,17 +86,12 @@ fn parse_connections(lines: &Vec<String>) -> (KnownWires, UnknownWires) {
     let mut unknown_wires: UnknownWires = UnknownWires(HashMap::new());
 
     for line in lines {
-        let lhs_rhs = line
-            .trim()
-            .split("->")
-            .map(str::trim)
-            .collect::<Vec<&str>>();
+        let lhs_rhs = line.split("->").map(str::trim).collect::<Vec<&str>>();
         let (incoming, outgoing) = (lhs_rhs[0], lhs_rhs[1]);
         let (operands, operator) = split_lhs(incoming);
 
         if operands.iter().all(|&x| known_wires.is_resolvable(x)) {
-            let num = known_wires.solve(&operands, operator);
-            known_wires.insert(outgoing.to_string(), num);
+            known_wires.solve_and_insert(outgoing.to_string(), &operands, operator);
         } else {
             unknown_wires.insert(outgoing.to_string(), incoming.to_string());
         }
@@ -111,15 +108,16 @@ fn resolve_unknown_wires(
         if known_wires.contains_key("a") {
             break;
         }
+
         let mut resolved_keys: Vec<String> = Vec::new();
         for (key, value) in unknown_wires.iter() {
             let (operands, operator) = split_lhs(value);
             if operands.iter().all(|&x| known_wires.is_resolvable(x)) {
-                let num = known_wires.solve(&operands, operator);
-                known_wires.insert(key.to_string(), num);
+                known_wires.solve_and_insert(key.to_string(), &operands, operator);
                 resolved_keys.push(key.clone());
             }
         }
+
         for x in &resolved_keys {
             unknown_wires.remove(x);
         }

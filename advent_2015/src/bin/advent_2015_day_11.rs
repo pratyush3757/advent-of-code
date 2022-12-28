@@ -1,12 +1,15 @@
 fn increment(input_sequence: &mut Vec<u8>, index: usize) {
     if index == 0 && input_sequence[index] == 122 {
+        // z
         return;
     }
     match input_sequence.get(index).unwrap() {
         97..=121 => {
+            // a..=y
             input_sequence[index] += 1;
         }
         122 => {
+            // z
             input_sequence[index] = 97;
             increment(input_sequence, index - 1);
         }
@@ -33,7 +36,7 @@ fn check_if_valid(input_sequence: &[u8]) -> bool {
     let mut last_double_pattern_idx = 9; // set to be out of array range.
     for i in 1..=7 {
         if (input_sequence[i] == input_sequence[i - 1]) && (i - 1 != last_double_pattern_idx) {
-            // second check prevents overlapping patterns like 'aaa'
+            // second condition prevents overlapping patterns like 'aaa'
             double_patterns_count += 1;
             last_double_pattern_idx = i;
         }
