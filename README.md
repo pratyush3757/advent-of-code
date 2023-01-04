@@ -1,19 +1,20 @@
 ## Advent Of Code 2015-
 [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)   
 
-My solutions to [Advent of Code](https://adventofcode.com) challenges. Being done in Rust and Python both.  
-The folder advent_2016 is just a placeholder at the moment.
+My solutions to [Advent of Code](https://adventofcode.com) challenges. Solutions are being written in Rust and Python both.
+
+### NOTE: 
+The repo is being re-organised to use a [scaffolding template](https://github.com/pratyush3757/aoc-template). Therefore Python solutions do not work at the moment.
 
 ### Usage
 ```sh
 # For Rust
-# example: cargo run --bin advent_2015_day_01
-cargo run --bin advent_<year>_day_<day number>
+# example: cargo run --bin aoc_2015_01
+cargo run --bin aoc_<year>_<day number>
 
 # For Python
-cd advent_<year>/src/python
-# example: python3 advent_2015_day_01.py
-python3 advent_<year>_day_<day number>.py
+# example: python3 "solutions/python/2015/day_01/main.py"
+python3 "solutions/python/<year>/day_<day number>/main.py"
 ```
 
 ### TODO:
