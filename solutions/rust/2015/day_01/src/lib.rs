@@ -1,26 +1,32 @@
-use advent_2015::file_input;
+pub struct PartOne;
+pub struct PartTwo;
 
-fn part_1(input_str: &str) -> usize {
-    input_str.matches('(').count() - input_str.matches(')').count()
-}
-
-fn part_2(input_str: &str) -> usize {
-    let mut rolling_sum = 0;
-    for (pos, ch) in std::iter::zip(1.., input_str.chars()) {
-        rolling_sum += match ch {
-            '(' => 1,
-            _ => -1,
-        };
-        if rolling_sum < 0 {
-            return pos;
-        }
+impl aoclib::Solvable<&str, i32> for PartOne {
+    fn solve(input: &str) -> aoclib::Solution<i32> {
+        Ok(input
+            .chars()
+            .map(|ch| match ch {
+                '(' => 1,
+                ')' => -1,
+                _ => 0,
+            })
+            .sum())
     }
-    input_str.len()
 }
 
-fn main() {
-    let lines = file_input::read_input_file();
-    let input_str = &lines[0];
-    println!("{}", part_1(input_str));
-    println!("{}", part_2(input_str));
+impl aoclib::Solvable<&str, i32> for PartTwo {
+    fn solve(input: &str) -> aoclib::Solution<i32> {
+        let mut rolling_sum = 0;
+        for (pos, ch) in std::iter::zip(1.., input.chars()) {
+            rolling_sum += match ch {
+                '(' => 1,
+                _ => -1,
+            };
+            if rolling_sum < 0 {
+                return Ok(pos);
+            }
+        }
+
+        Err("Not found".into())
+    }
 }

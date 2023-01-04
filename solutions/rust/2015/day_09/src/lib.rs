@@ -1,6 +1,32 @@
-use advent_2015::file_input;
 use itertools::Itertools;
 use std::collections::{HashMap, HashSet};
+
+pub struct PartOne;
+pub struct PartTwo;
+
+impl aoclib::Solvable<&str, u32> for PartOne {
+    fn solve(input: &str) -> aoclib::Solution<u32> {
+        let (distance_table, cities) = populate_distance_table(input);
+        Ok(cities
+            .iter()
+            .permutations(cities.len())
+            .map(|x| distance_table.calculate_route_distance(&x))
+            .min()
+            .unwrap())
+    }
+}
+
+impl aoclib::Solvable<&str, u32> for PartTwo {
+    fn solve(input: &str) -> aoclib::Solution<u32> {
+        let (distance_table, cities) = populate_distance_table(input);
+        Ok(cities
+            .iter()
+            .permutations(cities.len())
+            .map(|x| distance_table.calculate_route_distance(&x))
+            .max()
+            .unwrap())
+    }
+}
 
 #[derive(Debug)]
 struct DistanceTable(HashMap<String, u32>);
@@ -43,10 +69,10 @@ fn split_line(line: &str) -> (&str, &str, u32) {
     (cities[0], cities[1], distance)
 }
 
-fn populate_distance_table(lines: &Vec<String>) -> (DistanceTable, HashSet<String>) {
+fn populate_distance_table(input: &str) -> (DistanceTable, HashSet<String>) {
     let mut distance_table = DistanceTable(HashMap::new());
     let mut cities: HashSet<String> = HashSet::new();
-    for line in lines {
+    for line in input.lines() {
         let (city_a, city_b, distance) = split_line(line.trim());
         distance_table.record_distance(city_a, city_b, distance);
         cities.insert(city_a.to_string());
@@ -54,30 +80,4 @@ fn populate_distance_table(lines: &Vec<String>) -> (DistanceTable, HashSet<Strin
     }
 
     (distance_table, cities)
-}
-
-fn part_1(lines: &Vec<String>) -> u32 {
-    let (distance_table, cities) = populate_distance_table(lines);
-    cities
-        .iter()
-        .permutations(cities.len())
-        .map(|x| distance_table.calculate_route_distance(&x))
-        .min()
-        .unwrap()
-}
-
-fn part_2(lines: &Vec<String>) -> u32 {
-    let (distance_table, cities) = populate_distance_table(lines);
-    cities
-        .iter()
-        .permutations(cities.len())
-        .map(|x| distance_table.calculate_route_distance(&x))
-        .max()
-        .unwrap()
-}
-
-fn main() {
-    let lines = file_input::read_input_file();
-    println!("{}", part_1(&lines));
-    println!("{}", part_2(&lines));
 }

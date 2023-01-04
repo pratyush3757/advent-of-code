@@ -3,20 +3,6 @@
 version = 3
 
 [[package]]
-name = "advent_2015"
-version = "0.1.0"
-dependencies = [
- "fancy-regex",
- "itertools",
- "lazy_static",
- "md5",
-]
-
-[[package]]
-name = "advent_2016"
-version = "0.1.0"
-
-[[package]]
 name = "aho-corasick"
 version = "0.7.20"
 source = "registry+https://github.com/rust-lang/crates.io-index"

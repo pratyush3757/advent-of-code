@@ -1,3 +1,18 @@
+pub struct PartOne;
+pub struct PartTwo;
+
+impl aoclib::Solvable<&str, usize> for PartOne {
+    fn solve(input: &str) -> aoclib::Solution<usize> {
+        Ok(repeat_lookandsay(40, input.trim()))
+    }
+}
+
+impl aoclib::Solvable<&str, usize> for PartTwo {
+    fn solve(input: &str) -> aoclib::Solution<usize> {
+        Ok(repeat_lookandsay(50, input.trim()))
+    }
+}
+
 fn lookandsay(input_sequence: &str) -> String {
     let mut output_sequence: String = String::new();
     let mut run_char = input_sequence.chars().next().unwrap();
@@ -22,10 +37,4 @@ fn repeat_lookandsay(repeation_times: u32, input_sequence: &str) -> usize {
     }
 
     output_sequence.len()
-}
-
-fn main() {
-    let input_str: &str = "1113222113";
-    println!("{}", repeat_lookandsay(40, input_str));
-    println!("{}", repeat_lookandsay(50, input_str));
 }

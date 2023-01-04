@@ -1,8 +1,6 @@
 [workspace]
 
 members = [
-    "advent_2015",
-    "advent_2016",
     "solutions/rust/lib",
     "solutions/rust/2015/*",
 ]

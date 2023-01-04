@@ -1,31 +1,34 @@
 use md5;
 
-fn part_1(input_str: &str) -> usize {
-    let mut result = 1;
-    for suffix in 1.. {
-        let digest = md5::compute(format!("{input_str}{suffix}"));
-        if digest[..2] == [0, 0] && digest[2] <= 0x0F {
-            result = suffix;
-            break;
+pub struct PartOne;
+pub struct PartTwo;
+
+impl aoclib::Solvable<&str, usize> for PartOne {
+    fn solve(input: &str) -> aoclib::Solution<usize> {
+        let input_trimmed = input.trim();
+        let mut result = 1;
+        for suffix in 1.. {
+            let digest = md5::compute(format!("{input_trimmed}{suffix}"));
+            if digest[..2] == [0, 0] && digest[2] <= 0x0F {
+                result = suffix;
+                break;
+            }
         }
+        Ok(result)
     }
-    result
 }
 
-fn part_2(input_str: &str) -> usize {
-    let mut result = 1;
-    for suffix in 1.. {
-        let digest = md5::compute(format!("{input_str}{suffix}"));
-        if digest[..3] == [0, 0, 0] {
-            result = suffix;
-            break;
+impl aoclib::Solvable<&str, usize> for PartTwo {
+    fn solve(input: &str) -> aoclib::Solution<usize> {
+        let input_trimmed = input.trim();
+        let mut result = 1;
+        for suffix in 1.. {
+            let digest = md5::compute(format!("{input_trimmed}{suffix}"));
+            if digest[..3] == [0, 0, 0] {
+                result = suffix;
+                break;
+            }
         }
+        Ok(result)
     }
-    result
-}
-
-fn main() {
-    let input_str: &str = "yzbqklnj";
-    println!("{}", part_1(input_str));
-    println!("{}", part_2(input_str));
 }

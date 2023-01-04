@@ -1,5 +1,30 @@
-use advent_2015::file_input;
 use std::collections::HashMap;
+
+pub struct PartOne;
+pub struct PartTwo;
+
+impl aoclib::Solvable<&str, u16> for PartOne {
+    fn solve(input: &str) -> aoclib::Solution<u16> {
+        let (known_wires, unknown_wires) = parse_connections(input);
+        let known_wires = resolve_unknown_wires(known_wires, unknown_wires);
+        if let Some(value) = known_wires.get("a") {
+            return Ok(*value);
+        }
+        unreachable!("Will always have a value");
+    }
+}
+
+impl aoclib::Solvable<&str, u16> for PartTwo {
+    fn solve(input: &str) -> aoclib::Solution<u16> {
+        let (mut known_wires, unknown_wires) = parse_connections(input);
+        known_wires.insert("b".to_string(), PartOne::solve(input).unwrap());
+        let known_wires = resolve_unknown_wires(known_wires, unknown_wires);
+        if let Some(value) = known_wires.get("a") {
+            return Ok(*value);
+        }
+        unreachable!("Will always have a value");
+    }
+}
 
 #[derive(Debug)]
 struct KnownWires(HashMap<String, u16>);
@@ -81,11 +106,11 @@ fn split_lhs(lhs: &str) -> (Vec<&str>, &str) {
     }
 }
 
-fn parse_connections(lines: &Vec<String>) -> (KnownWires, UnknownWires) {
+fn parse_connections(input: &str) -> (KnownWires, UnknownWires) {
     let mut known_wires: KnownWires = KnownWires(HashMap::new());
     let mut unknown_wires: UnknownWires = UnknownWires(HashMap::new());
 
-    for line in lines {
+    for line in input.lines() {
         let lhs_rhs = line.split("->").map(str::trim).collect::<Vec<&str>>();
         let (incoming, outgoing) = (lhs_rhs[0], lhs_rhs[1]);
         let (operands, operator) = split_lhs(incoming);
@@ -124,34 +149,4 @@ fn resolve_unknown_wires(
     }
 
     known_wires
-}
-
-fn part_1(lines: &Vec<String>) -> u16 {
-    let (known_wires, unknown_wires) = parse_connections(lines);
-    let known_wires = resolve_unknown_wires(known_wires, unknown_wires);
-    if let Some(value) = known_wires.get("a") {
-        println!("Part 1: {}", value);
-
-        return *value;
-    }
-    unreachable!("Will always have a value");
-}
-
-fn part_2(lines: &Vec<String>, wire_a_val: u16) -> u16 {
-    let (mut known_wires, unknown_wires) = parse_connections(lines);
-    known_wires.insert("b".to_string(), wire_a_val);
-    let known_wires = resolve_unknown_wires(known_wires, unknown_wires);
-    if let Some(value) = known_wires.get("a") {
-        println!("Part 2: {}", value);
-
-        return *value;
-    }
-    unreachable!("Will always have a value");
-}
-
-fn main() {
-    let lines = file_input::read_input_file();
-    let wire_a_val = part_1(&lines);
-    println!("{}", wire_a_val);
-    println!("{}", part_2(&lines, wire_a_val));
 }

@@ -1,4 +1,62 @@
-use advent_2015::file_input;
+pub struct PartOne;
+pub struct PartTwo;
+
+impl aoclib::Solvable<&str, usize> for PartOne {
+    fn solve(input: &str) -> aoclib::Solution<usize> {
+        let mut lights = Blights {
+            grid: vec![vec![false; 1000]; 1000],
+        };
+        for line in input.lines() {
+            match line.split(' ').collect::<Vec<&str>>()[..] {
+                ["turn", "on", ul, "through", lr] => {
+                    lights.turn_on(get_coord_tuple(ul, lr));
+                }
+                ["turn", "off", ul, "through", lr] => {
+                    lights.turn_off(get_coord_tuple(ul, lr));
+                }
+                ["toggle", ul, "through", lr] => {
+                    lights.toggle(get_coord_tuple(ul, lr));
+                }
+                _ => (),
+            }
+        }
+
+        Ok(lights
+            .grid
+            .iter()
+            .flat_map(|x: &Vec<_>| x.iter())
+            .filter(|b| **b)
+            .count())
+    }
+}
+
+impl aoclib::Solvable<&str, i32> for PartTwo {
+    fn solve(input: &str) -> aoclib::Solution<i32> {
+        let mut lights = Nlights {
+            grid: vec![vec![0; 1000]; 1000],
+        };
+        for line in input.lines() {
+            match line.split(' ').collect::<Vec<&str>>()[..] {
+                ["turn", "on", ul, "through", lr] => {
+                    lights.turn_bright(get_coord_tuple(ul, lr));
+                }
+                ["turn", "off", ul, "through", lr] => {
+                    lights.turn_dull(get_coord_tuple(ul, lr));
+                }
+                ["toggle", ul, "through", lr] => {
+                    lights.turn_more_bright(get_coord_tuple(ul, lr));
+                }
+                _ => (),
+            }
+        }
+
+        Ok(lights
+            .grid
+            .iter()
+            .flat_map(|x: &Vec<_>| x.iter())
+            .sum::<i32>())
+    }
+}
 
 #[derive(Debug)]
 struct Blights {
@@ -77,69 +135,4 @@ fn to_coord(point: &str) -> Coord {
 
 fn get_coord_tuple(ul: &str, lr: &str) -> (Coord, Coord) {
     (to_coord(ul), to_coord(lr))
-}
-
-fn part_1(lines: &Vec<String>) {
-    let mut lights = Blights {
-        grid: vec![vec![false; 1000]; 1000],
-    };
-    for line in lines {
-        match line.split(' ').collect::<Vec<&str>>()[..] {
-            ["turn", "on", ul, "through", lr] => {
-                lights.turn_on(get_coord_tuple(ul, lr));
-            }
-            ["turn", "off", ul, "through", lr] => {
-                lights.turn_off(get_coord_tuple(ul, lr));
-            }
-            ["toggle", ul, "through", lr] => {
-                lights.toggle(get_coord_tuple(ul, lr));
-            }
-            _ => (),
-        }
-    }
-
-    println!(
-        "{}",
-        lights
-            .grid
-            .iter()
-            .flat_map(|x: &Vec<_>| x.iter())
-            .filter(|b| **b)
-            .count()
-    );
-}
-
-fn part_2(lines: &Vec<String>) {
-    let mut lights = Nlights {
-        grid: vec![vec![0; 1000]; 1000],
-    };
-    for line in lines {
-        match line.split(' ').collect::<Vec<&str>>()[..] {
-            ["turn", "on", ul, "through", lr] => {
-                lights.turn_bright(get_coord_tuple(ul, lr));
-            }
-            ["turn", "off", ul, "through", lr] => {
-                lights.turn_dull(get_coord_tuple(ul, lr));
-            }
-            ["toggle", ul, "through", lr] => {
-                lights.turn_more_bright(get_coord_tuple(ul, lr));
-            }
-            _ => (),
-        }
-    }
-
-    println!(
-        "{}",
-        lights
-            .grid
-            .iter()
-            .flat_map(|x: &Vec<_>| x.iter())
-            .sum::<i32>()
-    );
-}
-
-fn main() {
-    let lines = file_input::read_input_file();
-    part_1(&lines);
-    part_2(&lines);
 }

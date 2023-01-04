@@ -1,6 +1,8 @@
-use advent_2015::file_input;
 use fancy_regex::Regex;
 use lazy_static::lazy_static;
+
+pub struct PartOne;
+pub struct PartTwo;
 
 lazy_static! {
     static ref PATTERN_VOWELS: Regex = Regex::new(r"[aeiou]").unwrap();
@@ -10,7 +12,19 @@ lazy_static! {
     static ref PATTERN_LETTER_BETWEEN_SAME: Regex = Regex::new(r"(\w).(\1)").unwrap();
 }
 
-fn part_1(line: &str) -> bool {
+impl aoclib::Solvable<&str, usize> for PartOne {
+    fn solve(input: &str) -> aoclib::Solution<usize> {
+        Ok(input.lines().filter(|&line| check_valid_1(line)).count())
+    }
+}
+
+impl aoclib::Solvable<&str, usize> for PartTwo {
+    fn solve(input: &str) -> aoclib::Solution<usize> {
+        Ok(input.lines().filter(|&line| check_valid_2(line)).count())
+    }
+}
+
+fn check_valid_1(line: &str) -> bool {
     let res_forbidden = PATTERN_FORBIDDEN.find_iter(line).count();
     if res_forbidden != 0 {
         return false;
@@ -29,7 +43,7 @@ fn part_1(line: &str) -> bool {
     true
 }
 
-fn part_2(line: &str) -> bool {
+fn check_valid_2(line: &str) -> bool {
     let res_forbidden = PATTERN_REPEATING_TWICE.find_iter(line).count();
     if res_forbidden == 0 {
         return false;
@@ -41,14 +55,4 @@ fn part_2(line: &str) -> bool {
     }
 
     true
-}
-
-fn main() {
-    let lines = file_input::read_input_file();
-    // println!("{:#?}", lines);
-    let part_1_res = lines.iter().filter(|&line| part_1(line)).count();
-    let part_2_res = lines.iter().filter(|&line| part_2(line)).count();
-    println!("{}", part_1_res);
-    println!("{}", part_2_res);
-    // println!("{}", part_2(lines));
 }

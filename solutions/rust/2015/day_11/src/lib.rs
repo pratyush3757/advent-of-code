@@ -1,6 +1,36 @@
+pub struct PartOne;
+pub struct PartTwo;
+
+impl aoclib::Solvable<&str, String> for PartOne {
+    fn solve(input: &str) -> aoclib::Solution<String> {
+        let mut output_str: Vec<u8> = input.trim().as_bytes().to_owned();
+
+        while !check_if_valid(&output_str) {
+            increment(&mut output_str, 7);
+        }
+
+        Ok(String::from_utf8(output_str).unwrap())
+    }
+}
+
+impl aoclib::Solvable<&str, String> for PartTwo {
+    fn solve(input: &str) -> aoclib::Solution<String> {
+        let mut output_str: Vec<u8> = PartOne::solve(input).unwrap().as_bytes().to_owned();
+        increment(&mut output_str, 7);
+
+        while !check_if_valid(&output_str) {
+            increment(&mut output_str, 7);
+        }
+
+        Ok(String::from_utf8(output_str).unwrap())
+    }
+}
+
 fn increment(input_sequence: &mut Vec<u8>, index: usize) {
     if index == 0 && input_sequence[index] == 122 {
         // z
+        // return early, as zzzzzzzz wraps around to aaaaaaaa
+        input_sequence[index] = 97;
         return;
     }
     match input_sequence.get(index).unwrap() {
@@ -46,33 +76,4 @@ fn check_if_valid(input_sequence: &[u8]) -> bool {
     }
 
     true
-}
-
-fn part1(input_str: &str) -> String {
-    let mut output_str: Vec<u8> = input_str.as_bytes().to_owned();
-
-    while !check_if_valid(&output_str) {
-        increment(&mut output_str, 7);
-    }
-
-    String::from_utf8(output_str).unwrap()
-}
-
-fn part2(input_str: &str) -> String {
-    let mut output_str: Vec<u8> = input_str.as_bytes().to_owned();
-    increment(&mut output_str, 7);
-
-    while !check_if_valid(&output_str) {
-        increment(&mut output_str, 7);
-    }
-
-    String::from_utf8(output_str).unwrap()
-}
-
-fn main() {
-    let input_str: &str = "hxbxwxba";
-    let part1_res = part1(input_str);
-    let part2_res = part2(&part1_res);
-
-    println!("{} {}", part1_res, part2_res);
 }
