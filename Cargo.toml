@@ -3,4 +3,20 @@
 members = [
     "advent_2015",
     "advent_2016",
+    "solutions/rust/lib",
+    "solutions/rust/2015/*",
 ]
+
+[workspace.package]
+authors = ["Pratyush Choudhary <pratyush3757@gmail.com>"]
+license = "mit"
+edition = "2021"
+
+[profile.bench]
+lto = true
+
+[profile.release]
+overflow-checks = true
+
+[profile.dev]
+opt-level = 3

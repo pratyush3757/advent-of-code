@@ -1,0 +1,21 @@
+[package]
+name = "aoc_2015_09"
+version = "1.0.0"
+authors.workspace = true
+license = "mit"
+edition = "2021"
+
+[lib]
+name = "aoc_2015_09"
+path = "./src/lib.rs"
+
+[dependencies]
+aoclib = { path = "../../lib" }
+itertools = "0.10.5"
+
+[dev-dependencies]
+criterion = "*"
+
+[[bench]]
+name = "bench"
+harness = false
