@@ -3,14 +3,13 @@ pub struct PartTwo;
 
 impl aoclib::Solvable<&str, i32> for PartOne {
     fn solve(input: &str) -> aoclib::Solution<i32> {
-        Ok(input
-            .chars()
-            .map(|ch| match ch {
+        Ok(input.chars().fold(0, |acc, ch| {
+            acc + match ch {
                 '(' => 1,
                 ')' => -1,
                 _ => 0,
-            })
-            .sum())
+            }
+        }))
     }
 }
 
