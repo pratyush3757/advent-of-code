@@ -12,10 +12,3 @@ path = "./src/lib.rs"
 [dependencies]
 aoclib = { path = "../../lib" }
 itertools = "0.10.5"
-
-[dev-dependencies]
-criterion = "*"
-
-[[bench]]
-name = "bench"
-harness = false
