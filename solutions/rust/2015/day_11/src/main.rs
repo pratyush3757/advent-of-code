@@ -12,3 +12,23 @@ pub fn main() -> aoclib::Result<()> {
     );
     Ok(())
 }
+
+#[cfg(test)]
+mod tests {
+    use aoc_2015_11;
+    use aoclib::Solvable;
+
+    fn reader() -> String {
+        aoclib::reader(2015, 11, "input.txt").unwrap()
+    }
+
+    #[test]
+    fn aoc_2015_11_part_one() {
+        assert_eq!(aoc_2015_11::PartOne::solve(&reader()).unwrap(), "hxbxxyzz");
+    }
+
+    #[test]
+    fn aoc_2015_11_part_two() {
+        assert_eq!(aoc_2015_11::PartTwo::solve(&reader()).unwrap(), "hxcaabcc");
+    }
+}
