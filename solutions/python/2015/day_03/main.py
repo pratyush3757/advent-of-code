@@ -13,6 +13,8 @@ house_set = set()
 pos_x = 0
 pos_y = 0
 
+house_set.add(0,0)
+
 for direction in input_str:
     match direction:
         case "^":
@@ -34,6 +36,8 @@ pos_santa_x = 0
 pos_santa_y = 0
 pos_robo_x = 0
 pos_robo_y = 0
+
+house_set.add(0,0)
 
 for turn, direction in enumerate(input_str):
     increment_x = increment_y = 0

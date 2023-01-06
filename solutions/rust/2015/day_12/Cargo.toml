@@ -11,3 +11,6 @@ path = "./src/lib.rs"
 
 [dependencies]
 aoclib = { path = "../../lib" }
+
+[dev-dependencies]
+test-case.workspace = true

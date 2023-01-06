@@ -81,3 +81,23 @@ fn populate_distance_table(input: &str) -> (DistanceTable, HashSet<String>) {
 
     (distance_table, cities)
 }
+
+#[cfg(test)]
+mod tests {
+    use super::{PartOne, PartTwo};
+    use aoclib::Solvable;
+    
+    static SAMPLE_INPUT: &str = "London to Dublin = 464\n\
+    London to Belfast = 518\n\
+    Dublin to Belfast = 141";
+    
+    #[test]
+    fn aoc_2015_09_part_one_samples() {
+        assert_eq!(PartOne::solve(SAMPLE_INPUT).unwrap(), 605);
+    }
+
+    #[test]
+    fn aoc_2015_09_part_two_samples() {
+        assert_eq!(PartTwo::solve(SAMPLE_INPUT).unwrap(), 982);
+    }
+}

@@ -136,3 +136,23 @@ fn to_coord(point: &str) -> Coord {
 fn get_coord_tuple(ul: &str, lr: &str) -> (Coord, Coord) {
     (to_coord(ul), to_coord(lr))
 }
+
+#[cfg(test)]
+mod tests {
+    use super::{PartOne, PartTwo};
+    use aoclib::Solvable;
+    use test_case::test_case;
+
+    #[test_case("turn on 0,0 through 999,999", 1000000)]
+    #[test_case("toggle 0,0 through 999,0", 1000)]
+    #[test_case("turn on 0,0 through 999,999\nturn off 499,499 through 500,500", 1000000-4)]
+    fn aoc_2015_06_part_one_samples(input: &str, result: usize) {
+        assert_eq!(PartOne::solve(input).unwrap(), result);
+    }
+
+    #[test_case("turn on 0,0 through 0,0", 1)]
+    #[test_case("toggle 0,0 through 999,999", 2000000)]
+    fn aoc_2015_06_part_two_samples(input: &str, result: i32) {
+        assert_eq!(PartTwo::solve(input).unwrap(), result);
+    }
+}

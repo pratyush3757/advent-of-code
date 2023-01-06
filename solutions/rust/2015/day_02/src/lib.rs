@@ -48,3 +48,22 @@ fn to_gifts(input: &str) -> Vec<[u32; 3]> {
         })
         .collect()
 }
+
+#[cfg(test)]
+mod tests {
+    use super::{PartOne, PartTwo};
+    use aoclib::Solvable;
+    use test_case::test_case;
+
+    #[test_case("2x3x4", 58)]
+    #[test_case("1x1x10", 43)]
+    fn aoc_2015_02_part_one_samples(input: &str, result: u32) {
+        assert_eq!(PartOne::solve(input).unwrap(), result);
+    }
+
+    #[test_case("2x3x4", 34)]
+    #[test_case("1x1x10", 14)]
+    fn aoc_2015_02_part_two_samples(input: &str, result: u32) {
+        assert_eq!(PartTwo::solve(input).unwrap(), result);
+    }
+}

@@ -38,3 +38,18 @@ fn repeat_lookandsay(repeation_times: u32, input_sequence: &str) -> usize {
 
     output_sequence.len()
 }
+
+#[cfg(test)]
+mod tests {
+    use super::lookandsay;
+    use test_case::test_case;
+
+    #[test_case("1", "11")]
+    #[test_case("11", "21")]
+    #[test_case("21", "1211")]
+    #[test_case("1211", "111221")]
+    #[test_case("111221", "312211")]
+    fn aoc_2015_10_part_one_samples(input: &str, result: &str) {
+        assert_eq!(lookandsay(input), result);
+    }
+}

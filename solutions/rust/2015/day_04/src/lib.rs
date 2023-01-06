@@ -32,3 +32,16 @@ impl aoclib::Solvable<&str, usize> for PartTwo {
         Ok(result)
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::PartOne;
+    use aoclib::Solvable;
+    use test_case::test_case;
+
+    #[test_case("abcdef", 609043;)]
+    #[test_case("pqrstuv", 1048970)]
+    fn aoc_2015_04_part_one_samples(input: &str, result: usize) {
+        assert_eq!(PartOne::solve(input).unwrap(), result);
+    }
+}

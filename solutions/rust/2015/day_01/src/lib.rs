@@ -29,3 +29,29 @@ impl aoclib::Solvable<&str, i32> for PartTwo {
         Err("Not found".into())
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::{PartOne, PartTwo};
+    use aoclib::Solvable;
+    use test_case::test_case;
+
+    #[test_case("(())", 0; "sample_1")]
+    #[test_case("()()", 0; "sample_2")]
+    #[test_case("(((", 3; "sample_3")]
+    #[test_case("(()(()(", 3; "sample_4")]
+    #[test_case("))(((((", 3; "sample_5")]
+    #[test_case("())", -1; "sample_6")]
+    #[test_case("))(", -1; "sample_7")]
+    #[test_case(")))", -3; "sample_8")]
+    #[test_case(")())())", -3; "sample_9")]
+    fn aoc_2015_01_part_one_samples(input: &str, result: i32) {
+        assert_eq!(PartOne::solve(input).unwrap(), result);
+    }
+
+    #[test_case(")", 1; "sample_1")]
+    #[test_case("()())", 5; "sample_2")]
+    fn aoc_2015_01_part_two_samples(input: &str, result: i32) {
+        assert_eq!(PartTwo::solve(input).unwrap(), result);
+    }
+}

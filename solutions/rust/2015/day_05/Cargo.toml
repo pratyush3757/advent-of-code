@@ -13,3 +13,6 @@ path = "./src/lib.rs"
 aoclib = { path = "../../lib" }
 fancy-regex = "0.10.0"
 lazy_static = "1.4.0"
+
+[dev-dependencies]
+test-case.workspace = true

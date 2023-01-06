@@ -55,3 +55,25 @@ fn expand(line: &str) -> String {
 
     changing_text.to_string()
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use test_case::test_case;
+
+    #[test_case(r#""""#, r#""#; "empty quotes")]
+    #[test_case(r#""abc""#, r#"abc"#; "abc")]
+    #[test_case(r#""aaa\"aaa""#, r#"aaa.aaa"#; "escaped quote")]
+    #[test_case(r#""\x27""#, r#"."#)]
+    fn aoc_2015_08_part_one_samples(input: &str, result: &str) {
+        assert_eq!(shorten(input), result);
+    }
+
+    #[test_case(r#""""#, r#"\"\""#; "empty quotes")]
+    #[test_case(r#""abc""#, r#"\"abc\""#; "abc")]
+    #[test_case(r#""aaa\"aaa""#, r#"\"aaa\\\"aaa\""#; "escaped quote")]
+    #[test_case(r#""\x27""#, r#"\"\\x27\""#)]
+    fn aoc_2015_08_part_two_samples(input: &str, result: &str) {
+        assert_eq!(expand(input), result);
+    }
+}

@@ -56,3 +56,26 @@ fn check_valid_2(line: &str) -> bool {
 
     true
 }
+
+#[cfg(test)]
+mod tests {
+    use super::{check_valid_1, check_valid_2};
+    use test_case::test_case;
+
+    #[test_case("ugknbfddgicrmopn", true)]
+    #[test_case("aaa", true)]
+    #[test_case("jchzalrnumimnmhp", false)]
+    #[test_case("haegwjzuvuyypxyu", false)]
+    #[test_case("dvszwmarrgswjxmb", false)]
+    fn aoc_2015_05_part_one_samples(input: &str, result: bool) {
+        assert_eq!(check_valid_1(input), result);
+    }
+
+    #[test_case("qjhvhtzxzqqjkmpb", true)]
+    #[test_case("xxyxx", true)]
+    #[test_case("uurcxstgmygtbstg", false)]
+    #[test_case("ieodomkazucvgmuy", false)]
+    fn aoc_2015_05_part_two_samples(input: &str, result: bool) {
+        assert_eq!(check_valid_2(input), result);
+    }
+}

@@ -18,3 +18,6 @@ overflow-checks = true
 
 [profile.dev]
 opt-level = 3
+
+[workspace.dependencies]
+test-case = "2.2.2"

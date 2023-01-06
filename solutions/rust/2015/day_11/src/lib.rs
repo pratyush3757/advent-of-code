@@ -77,3 +77,24 @@ fn check_if_valid(input_sequence: &[u8]) -> bool {
 
     true
 }
+
+#[cfg(test)]
+mod tests {
+    use super::{PartOne, check_if_valid};
+    use aoclib::Solvable;
+    use test_case::test_case;
+
+    #[test_case("hijklmmn", false)]
+    #[test_case("abbceffg", false)]
+    #[test_case("abbcegjk", false)]
+    fn aoc_2015_11_part_one_validity(input: &str, result: bool) {
+        let output_str: Vec<u8> = input.trim().as_bytes().to_owned();
+        assert_eq!(check_if_valid(&output_str), result);
+    }
+    
+    #[test_case("abcdefgh", "abcdffaa")]
+    #[test_case("ghijklmn", "ghjaabcc")]
+    fn aoc_2015_11_part_one_next(input: &str, result: &str) {
+        assert_eq!(PartOne::solve(input).unwrap(), result);
+    }
+}

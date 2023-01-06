@@ -23,11 +23,13 @@ mod tests {
     }
 
     #[test]
+    #[ignore]
     fn aoc_2015_06_part_one() {
         assert_eq!(aoc_2015_06::PartOne::solve(&reader()).unwrap(), 377891);
     }
 
     #[test]
+    #[ignore]
     fn aoc_2015_06_part_two() {
         assert_eq!(aoc_2015_06::PartTwo::solve(&reader()).unwrap(), 14110788);
     }

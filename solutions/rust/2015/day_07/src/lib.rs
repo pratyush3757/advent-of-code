@@ -150,3 +150,36 @@ fn resolve_unknown_wires(
 
     known_wires
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use test_case::test_case;
+
+    fn resolve_wires (input: &str) -> KnownWires {
+        let (known_wires, unknown_wires) = parse_connections(input);
+        resolve_unknown_wires(known_wires, unknown_wires)
+    }
+    
+    static SAMPLE_INPUT: &str = "123 -> x\n\
+    456 -> y\n\
+    x AND y -> d\n\
+    x OR y -> e\n\
+    x LSHIFT 2 -> f\n\
+    y RSHIFT 2 -> g\n\
+    NOT x -> h\n\
+    NOT y -> i";
+    
+    #[test_case("d", 72)]
+    #[test_case("e", 507)]
+    #[test_case("f", 492)]
+    #[test_case("g", 114)]
+    #[test_case("h", 65412)]
+    #[test_case("i", 65079)]
+    #[test_case("x", 123)]
+    #[test_case("y", 456)]
+    fn aoc_2015_07_part_one_samples(wire: &str, value: u16) {
+        let known_wires = resolve_wires(SAMPLE_INPUT);
+        assert_eq!(known_wires.get(wire), Some(&value));
+    }
+}

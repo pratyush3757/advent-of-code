@@ -8,6 +8,7 @@ impl aoclib::Solvable<&str, usize> for PartOne {
         let mut pos_x = 0;
         let mut pos_y = 0;
         let mut visited_houses = HashSet::new();
+        visited_houses.insert((0,0));
 
         for direction in input.chars() {
             match direction {
@@ -32,6 +33,7 @@ impl aoclib::Solvable<&str, usize> for PartTwo {
         let mut pos_robo_x = 0;
         let mut pos_robo_y = 0;
         let mut visited_houses = HashSet::new();
+        visited_houses.insert((0,0));
 
         for (turn, direction) in input.chars().enumerate() {
             let mut increment_y = 0;
@@ -56,5 +58,26 @@ impl aoclib::Solvable<&str, usize> for PartTwo {
         }
 
         Ok(visited_houses.len())
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::{PartOne, PartTwo};
+    use aoclib::Solvable;
+    use test_case::test_case;
+
+    #[test_case(">", 2; "sample_1")]
+    #[test_case("^>v<", 4; "sample_2")]
+    #[test_case("^v^v^v^v^v", 2; "sample_3")]
+    fn aoc_2015_03_part_one_samples(input: &str, result: usize) {
+        assert_eq!(PartOne::solve(input).unwrap(), result);
+    }
+
+    #[test_case("^v", 3; "sample_1")]
+    #[test_case("^>v<", 3; "sample_2")]
+    #[test_case("^v^v^v^v^v", 11; "sample_3")]
+    fn aoc_2015_03_part_two_samples(input: &str, result: usize) {
+        assert_eq!(PartTwo::solve(input).unwrap(), result);
     }
 }
