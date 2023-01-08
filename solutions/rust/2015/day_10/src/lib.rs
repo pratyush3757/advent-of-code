@@ -2,13 +2,13 @@ pub struct PartOne;
 pub struct PartTwo;
 
 impl aoclib::Solvable<&str, usize> for PartOne {
-    fn solve(input: &str) -> aoclib::Solution<usize> {
+    fn solve(input: &str) -> aoclib::Result<usize> {
         Ok(repeat_lookandsay(40, input.trim()))
     }
 }
 
 impl aoclib::Solvable<&str, usize> for PartTwo {
-    fn solve(input: &str) -> aoclib::Solution<usize> {
+    fn solve(input: &str) -> aoclib::Result<usize> {
         Ok(repeat_lookandsay(50, input.trim()))
     }
 }

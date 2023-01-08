@@ -2,7 +2,7 @@ pub struct PartOne;
 pub struct PartTwo;
 
 impl aoclib::Solvable<&str, usize> for PartOne {
-    fn solve(input: &str) -> aoclib::Solution<usize> {
+    fn solve(input: &str) -> aoclib::Result<usize> {
         let mut lights = Blights {
             grid: vec![vec![false; 1000]; 1000],
         };
@@ -31,7 +31,7 @@ impl aoclib::Solvable<&str, usize> for PartOne {
 }
 
 impl aoclib::Solvable<&str, i32> for PartTwo {
-    fn solve(input: &str) -> aoclib::Solution<i32> {
+    fn solve(input: &str) -> aoclib::Result<i32> {
         let mut lights = Nlights {
             grid: vec![vec![0; 1000]; 1000],
         };

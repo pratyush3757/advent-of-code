@@ -2,7 +2,7 @@ pub struct PartOne;
 pub struct PartTwo;
 
 impl aoclib::Solvable<&str, u32> for PartOne {
-    fn solve(input: &str) -> aoclib::Solution<u32> {
+    fn solve(input: &str) -> aoclib::Result<u32> {
         let gifts = to_gifts(input);
         let mut sum_area = 0;
         for entry in gifts {
@@ -19,7 +19,7 @@ impl aoclib::Solvable<&str, u32> for PartOne {
 }
 
 impl aoclib::Solvable<&str, u32> for PartTwo {
-    fn solve(input: &str) -> aoclib::Solution<u32> {
+    fn solve(input: &str) -> aoclib::Result<u32> {
         let gifts = to_gifts(input);
         let mut sum_ribbon = 0;
         for entry in gifts {

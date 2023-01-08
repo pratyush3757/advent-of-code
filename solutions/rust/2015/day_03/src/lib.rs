@@ -4,11 +4,11 @@ pub struct PartOne;
 pub struct PartTwo;
 
 impl aoclib::Solvable<&str, usize> for PartOne {
-    fn solve(input: &str) -> aoclib::Solution<usize> {
+    fn solve(input: &str) -> aoclib::Result<usize> {
         let mut pos_x = 0;
         let mut pos_y = 0;
         let mut visited_houses = HashSet::new();
-        visited_houses.insert((0,0));
+        visited_houses.insert((0, 0));
 
         for direction in input.chars() {
             match direction {
@@ -27,13 +27,13 @@ impl aoclib::Solvable<&str, usize> for PartOne {
 }
 
 impl aoclib::Solvable<&str, usize> for PartTwo {
-    fn solve(input: &str) -> aoclib::Solution<usize> {
+    fn solve(input: &str) -> aoclib::Result<usize> {
         let mut pos_santa_x = 0;
         let mut pos_santa_y = 0;
         let mut pos_robo_x = 0;
         let mut pos_robo_y = 0;
         let mut visited_houses = HashSet::new();
-        visited_houses.insert((0,0));
+        visited_houses.insert((0, 0));
 
         for (turn, direction) in input.chars().enumerate() {
             let mut increment_y = 0;

@@ -4,7 +4,7 @@ pub struct PartOne;
 pub struct PartTwo;
 
 impl aoclib::Solvable<&str, u16> for PartOne {
-    fn solve(input: &str) -> aoclib::Solution<u16> {
+    fn solve(input: &str) -> aoclib::Result<u16> {
         let (known_wires, unknown_wires) = parse_connections(input);
         let known_wires = resolve_unknown_wires(known_wires, unknown_wires);
         if let Some(value) = known_wires.get("a") {
@@ -15,7 +15,7 @@ impl aoclib::Solvable<&str, u16> for PartOne {
 }
 
 impl aoclib::Solvable<&str, u16> for PartTwo {
-    fn solve(input: &str) -> aoclib::Solution<u16> {
+    fn solve(input: &str) -> aoclib::Result<u16> {
         let (mut known_wires, unknown_wires) = parse_connections(input);
         known_wires.insert("b".to_string(), PartOne::solve(input).unwrap());
         let known_wires = resolve_unknown_wires(known_wires, unknown_wires);
@@ -156,11 +156,11 @@ mod tests {
     use super::*;
     use test_case::test_case;
 
-    fn resolve_wires (input: &str) -> KnownWires {
+    fn resolve_wires(input: &str) -> KnownWires {
         let (known_wires, unknown_wires) = parse_connections(input);
         resolve_unknown_wires(known_wires, unknown_wires)
     }
-    
+
     static SAMPLE_INPUT: &str = "123 -> x\n\
     456 -> y\n\
     x AND y -> d\n\
@@ -169,7 +169,7 @@ mod tests {
     y RSHIFT 2 -> g\n\
     NOT x -> h\n\
     NOT y -> i";
-    
+
     #[test_case("d", 72)]
     #[test_case("e", 507)]
     #[test_case("f", 492)]

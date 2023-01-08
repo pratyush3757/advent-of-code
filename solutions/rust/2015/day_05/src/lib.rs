@@ -13,13 +13,13 @@ lazy_static! {
 }
 
 impl aoclib::Solvable<&str, usize> for PartOne {
-    fn solve(input: &str) -> aoclib::Solution<usize> {
+    fn solve(input: &str) -> aoclib::Result<usize> {
         Ok(input.lines().filter(|&line| check_valid_1(line)).count())
     }
 }
 
 impl aoclib::Solvable<&str, usize> for PartTwo {
-    fn solve(input: &str) -> aoclib::Solution<usize> {
+    fn solve(input: &str) -> aoclib::Result<usize> {
         Ok(input.lines().filter(|&line| check_valid_2(line)).count())
     }
 }

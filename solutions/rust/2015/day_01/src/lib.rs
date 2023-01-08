@@ -2,7 +2,7 @@ pub struct PartOne;
 pub struct PartTwo;
 
 impl aoclib::Solvable<&str, i32> for PartOne {
-    fn solve(input: &str) -> aoclib::Solution<i32> {
+    fn solve(input: &str) -> aoclib::Result<i32> {
         Ok(input.chars().fold(0, |acc, ch| {
             acc + match ch {
                 '(' => 1,
@@ -14,7 +14,7 @@ impl aoclib::Solvable<&str, i32> for PartOne {
 }
 
 impl aoclib::Solvable<&str, i32> for PartTwo {
-    fn solve(input: &str) -> aoclib::Solution<i32> {
+    fn solve(input: &str) -> aoclib::Result<i32> {
         let mut rolling_sum = 0;
         for (pos, ch) in std::iter::zip(1.., input.chars()) {
             rolling_sum += match ch {
@@ -26,7 +26,7 @@ impl aoclib::Solvable<&str, i32> for PartTwo {
             }
         }
 
-        Err("Not found".into())
+        aoclib::bail!("Not found")
     }
 }
 

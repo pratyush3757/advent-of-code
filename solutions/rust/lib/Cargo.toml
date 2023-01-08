@@ -11,3 +11,4 @@ path = "./src/lib.rs"
 
 [dependencies]
 fancy-regex = "0.10.0"
+anyhow = "1.0"

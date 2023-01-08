@@ -5,7 +5,7 @@ pub struct PartOne;
 pub struct PartTwo;
 
 impl aoclib::Solvable<&str, u32> for PartOne {
-    fn solve(input: &str) -> aoclib::Solution<u32> {
+    fn solve(input: &str) -> aoclib::Result<u32> {
         let (distance_table, cities) = populate_distance_table(input);
         Ok(cities
             .iter()
@@ -17,7 +17,7 @@ impl aoclib::Solvable<&str, u32> for PartOne {
 }
 
 impl aoclib::Solvable<&str, u32> for PartTwo {
-    fn solve(input: &str) -> aoclib::Solution<u32> {
+    fn solve(input: &str) -> aoclib::Result<u32> {
         let (distance_table, cities) = populate_distance_table(input);
         Ok(cities
             .iter()
@@ -86,11 +86,11 @@ fn populate_distance_table(input: &str) -> (DistanceTable, HashSet<String>) {
 mod tests {
     use super::{PartOne, PartTwo};
     use aoclib::Solvable;
-    
+
     static SAMPLE_INPUT: &str = "London to Dublin = 464\n\
     London to Belfast = 518\n\
     Dublin to Belfast = 141";
-    
+
     #[test]
     fn aoc_2015_09_part_one_samples() {
         assert_eq!(PartOne::solve(SAMPLE_INPUT).unwrap(), 605);

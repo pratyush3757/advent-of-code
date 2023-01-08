@@ -4,7 +4,7 @@ pub struct PartOne;
 pub struct PartTwo;
 
 impl aoclib::Solvable<&str, usize> for PartOne {
-    fn solve(input: &str) -> aoclib::Solution<usize> {
+    fn solve(input: &str) -> aoclib::Result<usize> {
         let input_trimmed = input.trim();
         let mut result = 1;
         for suffix in 1.. {
@@ -19,7 +19,7 @@ impl aoclib::Solvable<&str, usize> for PartOne {
 }
 
 impl aoclib::Solvable<&str, usize> for PartTwo {
-    fn solve(input: &str) -> aoclib::Solution<usize> {
+    fn solve(input: &str) -> aoclib::Result<usize> {
         let input_trimmed = input.trim();
         let mut result = 1;
         for suffix in 1.. {

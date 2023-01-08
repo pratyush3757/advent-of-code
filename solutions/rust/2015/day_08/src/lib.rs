@@ -13,7 +13,7 @@ lazy_static! {
 }
 
 impl aoclib::Solvable<&str, usize> for PartOne {
-    fn solve(input: &str) -> aoclib::Solution<usize> {
+    fn solve(input: &str) -> aoclib::Result<usize> {
         let mut raw_length = 0;
         let mut escaped_length = 0;
         for line in input.lines() {
@@ -27,7 +27,7 @@ impl aoclib::Solvable<&str, usize> for PartOne {
 }
 
 impl aoclib::Solvable<&str, usize> for PartTwo {
-    fn solve(input: &str) -> aoclib::Solution<usize> {
+    fn solve(input: &str) -> aoclib::Result<usize> {
         let mut raw_length = 0;
         let mut expanded_length = 0;
         for line in input.lines() {

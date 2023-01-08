@@ -11,6 +11,7 @@ path = "./src/lib.rs"
 
 [dependencies]
 aoclib = { path = "../../lib" }
+serde_json = "1.0"
 
 [dev-dependencies]
 test-case.workspace = true
