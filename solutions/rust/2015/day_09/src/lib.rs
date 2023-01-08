@@ -63,10 +63,13 @@ impl DistanceTable {
 }
 
 fn split_line(line: &str) -> (&str, &str, u32) {
-    let lhs_rhs = line.split(" = ").collect::<Vec<&str>>();
-    let cities = lhs_rhs[0].split(" to ").collect::<Vec<&str>>();
-    let distance = lhs_rhs[1].parse::<u32>().unwrap();
-    (cities[0], cities[1], distance)
+    let divided_line: Vec<&str> = line.split_whitespace().collect();
+    match &divided_line[..] {
+        [city_a, _, city_b, _, distance] => {
+            (city_a, city_b, distance.parse::<u32>().unwrap())
+        },
+        _ => unreachable!("No more variations in the input"),
+    }
 }
 
 fn populate_distance_table(input: &str) -> (DistanceTable, HashSet<String>) {

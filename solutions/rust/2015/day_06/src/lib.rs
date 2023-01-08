@@ -7,14 +7,14 @@ impl aoclib::Solvable<&str, usize> for PartOne {
             grid: vec![vec![false; 1000]; 1000],
         };
         for line in input.lines() {
-            match line.split(' ').collect::<Vec<&str>>()[..] {
-                ["turn", "on", ul, "through", lr] => {
+            match line.split_ascii_whitespace().collect::<Vec<&str>>()[..] {
+                ["turn", "on", ul, _, lr] => {
                     lights.turn_on(get_coord_tuple(ul, lr));
                 }
-                ["turn", "off", ul, "through", lr] => {
+                ["turn", "off", ul, _, lr] => {
                     lights.turn_off(get_coord_tuple(ul, lr));
                 }
-                ["toggle", ul, "through", lr] => {
+                ["toggle", ul, _, lr] => {
                     lights.toggle(get_coord_tuple(ul, lr));
                 }
                 _ => (),
@@ -36,14 +36,14 @@ impl aoclib::Solvable<&str, i32> for PartTwo {
             grid: vec![vec![0; 1000]; 1000],
         };
         for line in input.lines() {
-            match line.split(' ').collect::<Vec<&str>>()[..] {
-                ["turn", "on", ul, "through", lr] => {
+            match line.split_ascii_whitespace().collect::<Vec<&str>>()[..] {
+                ["turn", "on", ul, _, lr] => {
                     lights.turn_bright(get_coord_tuple(ul, lr));
                 }
-                ["turn", "off", ul, "through", lr] => {
+                ["turn", "off", ul, _, lr] => {
                     lights.turn_dull(get_coord_tuple(ul, lr));
                 }
-                ["toggle", ul, "through", lr] => {
+                ["toggle", ul, _, lr] => {
                     lights.turn_more_bright(get_coord_tuple(ul, lr));
                 }
                 _ => (),

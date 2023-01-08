@@ -125,6 +125,7 @@ name = "aoc_2015_13"
 version = "1.0.0"
 dependencies = [
  "aoclib",
+ "itertools",
  "test-case",
 ]
 
