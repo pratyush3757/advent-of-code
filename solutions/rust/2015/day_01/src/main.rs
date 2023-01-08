@@ -15,7 +15,6 @@ pub fn main() -> aoclib::Result<()> {
 
 #[cfg(test)]
 mod tests {
-    use aoc_2015_01;
     use aoclib::Solvable;
 
     fn reader() -> String {

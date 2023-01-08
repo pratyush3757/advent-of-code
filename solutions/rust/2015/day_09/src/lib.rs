@@ -54,7 +54,7 @@ impl DistanceTable {
         *self.get(&format!("{city_a} {city_b}")).unwrap()
     }
 
-    fn calculate_route_distance(&self, route: &Vec<&String>) -> u32 {
+    fn calculate_route_distance(&self, route: &[&String]) -> u32 {
         route
             .windows(2)
             .map(|x| self.get_distance(x[0], x[1]))

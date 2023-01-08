@@ -15,7 +15,6 @@ pub fn main() -> aoclib::Result<()> {
 
 #[cfg(test)]
 mod tests {
-    use aoc_2015_12;
     use aoclib::Solvable;
 
     fn reader() -> String {
@@ -31,6 +30,6 @@ mod tests {
     #[test]
     #[ignore]
     fn aoc_2015_12_part_two() {
-        assert_eq!(aoc_2015_12::PartTwo::solve(&reader()).unwrap(), 0);
+        assert_eq!(aoc_2015_12::PartTwo::solve(&reader()).unwrap(), 96852);
     }
 }
