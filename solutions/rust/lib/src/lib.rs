@@ -9,7 +9,7 @@ pub trait Solvable<T, R> {
 /**
  * Reads the input file for the day.
  */
-pub fn reader(year: u16, day: u16, file_name: &'static str) -> Result<String> {
+pub fn reader(year: &'static str, day: &'static str, file_name: &'static str) -> Result<String> {
     fs::read_to_string(path_resolve(year, day, file_name)?.as_path()).map_err(Error::msg)
 }
 
@@ -27,11 +27,11 @@ fn find_nearest_directory_named(directory_name: &str) -> Result<String> {
         .to_string());
 }
 
-fn path_resolve(year: u16, day: u16, file_name: &'static str) -> Result<PathBuf> {
+fn path_resolve(year: &'static str, day: &'static str, file_name: &'static str) -> Result<PathBuf> {
     let input_dir_path = find_nearest_directory_named("input")?;
 
     Ok(PathBuf::from(format!(
-        "{input_dir_path}/{year}/day_{day:02}/{file_name}",
+        "{input_dir_path}/{year}/day_{day}/{file_name}",
         input_dir_path = input_dir_path,
         year = year,
         day = day,
