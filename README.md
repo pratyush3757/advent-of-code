@@ -18,5 +18,6 @@ python3 "solutions/python/<year>/day_<day number>/main.py"
 ```
 
 ### TODO:
-- [ ] Add examples as test cases
+- [x] Add examples as test cases
+- [ ] Change unwraps to Options/Results and `?` shorthand
 - [ ] Add challenge text for each day
