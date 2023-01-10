@@ -30,6 +30,6 @@ mod tests {
     #[test]
     #[ignore]
     fn aoc_2015_14_part_two() {
-        assert_eq!(aoc_2015_14::PartTwo::solve(&reader()).unwrap(), 0);
+        assert_eq!(aoc_2015_14::PartTwo::solve(&reader()).unwrap(), 1102);
     }
 }
