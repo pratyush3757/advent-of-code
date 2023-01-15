@@ -65,9 +65,7 @@ impl DistanceTable {
 fn split_line(line: &str) -> (&str, &str, u32) {
     let divided_line: Vec<&str> = line.split_whitespace().collect();
     match &divided_line[..] {
-        [city_a, _, city_b, _, distance] => {
-            (city_a, city_b, distance.parse::<u32>().unwrap())
-        },
+        [city_a, _, city_b, _, distance] => (city_a, city_b, distance.parse::<u32>().unwrap()),
         _ => unreachable!("No more variations in the input"),
     }
 }

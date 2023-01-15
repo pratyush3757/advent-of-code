@@ -22,7 +22,8 @@ fn part_one_general(input: &str, finish_time: u16) -> Result<u16> {
             let deer = split_line(line);
             calculate_distance_traveled(&deer, finish_time)
         })
-        .max().context("Max not found")
+        .max()
+        .context("Max not found")
 }
 
 fn part_two_general(input: &str, finish_time: u16) -> Result<u16> {
@@ -57,12 +58,11 @@ struct Deer {
 fn split_line(input: &str) -> Deer {
     let divided_line: Vec<&str> = input.split_whitespace().collect();
     match &divided_line[..] {
-        [_, _, _, speed, _, _, fly_time, _, _, _, _, _, _, rest_time, _] => 
-            Deer{
+        [_, _, _, speed, _, _, fly_time, _, _, _, _, _, _, rest_time, _] => Deer {
             speed: speed.parse().unwrap(),
             fly_time: fly_time.parse().unwrap(),
-            rest_time: rest_time.parse().unwrap()}
-        ,
+            rest_time: rest_time.parse().unwrap(),
+        },
         _ => unreachable!("No other variation in input."),
     }
 }
@@ -86,7 +86,17 @@ mod tests {
     #[test]
     fn aoc_2015_14_part_one_sample_at_1000() {
         assert_eq!(part_one_general(SAMPLE_INPUT, 1000).unwrap(), 1120);
-        assert_eq!(calculate_distance_traveled(&Deer { speed: 16, fly_time: 11, rest_time: 162 }, 1000), 1056);
+        assert_eq!(
+            calculate_distance_traveled(
+                &Deer {
+                    speed: 16,
+                    fly_time: 11,
+                    rest_time: 162
+                },
+                1000
+            ),
+            1056
+        );
     }
 
     #[test]
