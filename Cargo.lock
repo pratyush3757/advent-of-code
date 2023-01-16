@@ -153,6 +153,14 @@ dependencies = [
 ]
 
 [[package]]
+name = "aoc_2015_17"
+version = "1.0.0"
+dependencies = [
+ "aoclib",
+ "itertools",
+]
+
+[[package]]
 name = "aoclib"
 version = "1.0.0"
 dependencies = [
