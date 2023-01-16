@@ -24,12 +24,12 @@ mod tests {
     #[test]
     #[ignore]
     fn aoc_2015_15_part_one() {
-        assert_eq!(aoc_2015_15::PartOne::solve(&reader()).unwrap(), 0);
+        assert_eq!(aoc_2015_15::PartOne::solve(&reader()).unwrap(), 222870);
     }
 
     #[test]
     #[ignore]
     fn aoc_2015_15_part_two() {
-        assert_eq!(aoc_2015_15::PartTwo::solve(&reader()).unwrap(), 0);
+        assert_eq!(aoc_2015_15::PartTwo::solve(&reader()).unwrap(), 117936);
     }
 }
