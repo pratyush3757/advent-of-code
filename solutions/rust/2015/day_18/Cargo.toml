@@ -1,0 +1,14 @@
+[package]
+name = "aoc_2015_18"
+version = "1.0.0"
+authors.workspace = true
+license = "mit"
+edition = "2021"
+
+[lib]
+name = "aoc_2015_18"
+path = "./src/lib.rs"
+
+[dependencies]
+aoclib = { path = "../../lib" }
+
