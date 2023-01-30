@@ -168,6 +168,14 @@ dependencies = [
 ]
 
 [[package]]
+name = "aoc_2015_19"
+version = "1.0.0"
+dependencies = [
+ "aoclib",
+ "test-case",
+]
+
+[[package]]
 name = "aoclib"
 version = "1.0.0"
 dependencies = [
